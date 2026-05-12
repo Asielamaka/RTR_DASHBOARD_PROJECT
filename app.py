@@ -441,6 +441,13 @@ tvl_trends = processed.tvl_trends
 scores     = risk.scores
 summary    = risk.summary
 
+# ── Data source indicator ────────────────────────────────────────────────────
+# Show a prominent badge indicating whether data is live or simulated
+if is_live:
+    st.success("🟢 **Live Data** — Pulling from Centrifuge API", icon="✓")
+else:
+    st.warning("🟡 **Simulated Data** — Using mock data (API unavailable)", icon="⚠")
+
 # ── Apply tier filter ────────────────────────────────────────────────────────
 if st.session_state.filter_tiers:
     filtered_pool_ids = scores[scores["risk_tier"].isin(
@@ -512,7 +519,7 @@ if st.session_state.page == "Overview":
                         delta="Centrifuge API" if is_live else "Simulated data",
                         delta_good=is_live)
 
-    # ── TVL bar chart ─────────────────────────────────────────────────────────
+    # ── TVL bar chart ─────────────────��───────────────────────────────────────
     _section("Total Value Locked", "Current TVL snapshot across all tracked pools")
     fig_tvl = plot_tvl_bar(pools_filtered)
     st.pyplot(fig_tvl, use_container_width=True)
@@ -805,7 +812,7 @@ elif st.session_state.page == "Risk Signals":
 
 # ═════════════════════════════════════════════════════════════════════════════
 # PAGE 4 — COLLATERAL HEALTH
-# ═════════════════════════════════════════════════════════════════════════════
+# ════════════════════════════════════════════════════════════════════���════════
 elif st.session_state.page == "Collateral Health":
 
     st.markdown("<h1>Collateral Health</h1>", unsafe_allow_html=True)
